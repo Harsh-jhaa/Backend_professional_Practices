@@ -1,5 +1,5 @@
 const asynchandler = (requestHandler) =>{
-    (req,res,next)=>{
+    return (req,res,next)=>{
         Promise.resolve(requestHandler(req,res,next)).catch((err)=>next(err))
     }
 }
@@ -7,7 +7,7 @@ const asynchandler = (requestHandler) =>{
 
 
 
-export default asynchandler
+export  {asynchandler};
 
 
 // this handler handles the  functions or middlewares , as they can either be executed or not, this makes the code more usuable and avoid redundancy
