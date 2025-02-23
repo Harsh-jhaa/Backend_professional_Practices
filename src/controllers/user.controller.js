@@ -6,7 +6,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 
 const registerUser = asynchandler(async (req, res) => {
   const { fullname, email, password, username } = req.body;
-  console.log("email:", email);
+  //   console.log("email:", email);
   if (
     [fullname, email, password, username].some((field) => field?.trim() === "")
   ) {
@@ -19,7 +19,12 @@ const registerUser = asynchandler(async (req, res) => {
     throw new ApiError(409, "User with this email already exists");
   }
   const avatarLocalPath = req.files?.avatar[0]?.path;
-  const coverImageLocalPath = req.files?.coverImage[0]?.path;
+//   const coverImageLocalPath = req.files?.coverImage[0]?.path;
+
+let coverImageLocalPath;
+if(req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0){
+    coverImageLocalPath = req.files.coverImage[0].path
+}
 
   if (!avatarLocalPath) {
     throw new ApiError(400, "Avatar file is required");
@@ -48,9 +53,7 @@ const registerUser = asynchandler(async (req, res) => {
   }
   return res
     .status(201)
-    .json(
-        new ApiResponse(200, createdUser, "User registered successfully")
-    );
+    .json(new ApiResponse(200, createdUser, "User registered successfully"));
 });
 
 export { registerUser };
