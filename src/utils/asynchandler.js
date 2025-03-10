@@ -7,7 +7,7 @@ const asynchandler = (requestHandler) =>{
 
 
 
-export  {asynchandler};
+export {asynchandler};
 
 
 // this handler handles the  functions or middlewares , as they can either be executed or not, this makes the code more usuable and avoid redundancy
